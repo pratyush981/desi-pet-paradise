@@ -35,22 +35,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Simulate server request delay
     await new Promise(resolve => setTimeout(resolve, 800));
 
-    if (email === users.admin.email && password === users.admin.password) {
-      const userData = {
-        id: users.admin.id,
-        email: users.admin.email,
-        name: users.admin.name,
-        role: users.admin.role as "admin" | "user"
-      };
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
-      return true;
-    } else if (email === users.user.email && password === users.user.password) {
+    // Fix user login by properly handling the user role/credentials
+    if (email === users.user.email && password === users.user.password) {
       const userData = {
         id: users.user.id,
         email: users.user.email,
         name: users.user.name,
         role: users.user.role as "admin" | "user"
+      };
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      return true;
+    } else if (email === users.admin.email && password === users.admin.password) {
+      const userData = {
+        id: users.admin.id,
+        email: users.admin.email,
+        name: users.admin.name,
+        role: users.admin.role as "admin" | "user"
       };
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));

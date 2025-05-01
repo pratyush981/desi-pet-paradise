@@ -18,9 +18,20 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  
+  // Redirect if already logged in
+  React.useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/shop");
+      }
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,8 +47,12 @@ const Login = () => {
           duration: 3000,
         });
         
-        // Redirect based on user role (handled in App.tsx)
-        navigate("/");
+        // Navigate based on user role
+        if (email === "admin@desipetparadise.com") {
+          navigate("/admin");
+        } else {
+          navigate("/shop");
+        }
       } else {
         toast({
           title: "Login failed",

@@ -26,15 +26,11 @@ const UserRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading } = useAuth();
   
   if (isLoading) {
-    return <div>Loading...</div>; // You can create a nice loading component
+    return <div>Loading...</div>;
   }
   
   if (!user) {
     return <Navigate to="/login" />;
-  }
-  
-  if (user.role === "admin") {
-    return <Navigate to="/admin" />;
   }
   
   return <>{children}</>;
@@ -45,7 +41,7 @@ const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading } = useAuth();
   
   if (isLoading) {
-    return <div>Loading...</div>; // You can create a nice loading component
+    return <div>Loading...</div>;
   }
   
   if (!user) {
