@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { AdminSidebar } from "@/components/admin/Sidebar";
 import { petData, petCategories } from "@/data/petData";
@@ -293,13 +292,14 @@ const ManagePets = () => {
                 <div className="space-y-2">
                   <Label htmlFor="category">Category</Label>
                   <Select 
-                    value={formData.category} 
+                    value={formData.category || "uncategorized"} 
                     onValueChange={(value) => handleSelectChange("category", value)}
                   >
                     <SelectTrigger id="category">
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="uncategorized">Uncategorized</SelectItem>
                       {petCategories.map((category) => (
                         <SelectItem key={category} value={category}>
                           {category}
@@ -426,13 +426,14 @@ const ManagePets = () => {
                 <div className="space-y-2">
                   <Label htmlFor="edit-category">Category</Label>
                   <Select 
-                    value={formData.category} 
+                    value={formData.category || "uncategorized"} 
                     onValueChange={(value) => handleSelectChange("category", value)}
                   >
                     <SelectTrigger id="edit-category">
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="uncategorized">Uncategorized</SelectItem>
                       {petCategories.map((category) => (
                         <SelectItem key={category} value={category}>
                           {category}

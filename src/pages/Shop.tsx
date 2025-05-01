@@ -10,14 +10,14 @@ import { Label } from "@/components/ui/label";
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortType, setSortType] = useState<string>("name-asc");
 
   // Filter pets by search term and category
   const filteredPets = petData.filter((pet) => {
     const nameMatch = pet.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                       pet.breed.toLowerCase().includes(searchTerm.toLowerCase());
-    const categoryMatch = selectedCategory ? pet.category === selectedCategory : true;
+    const categoryMatch = selectedCategory === "all" ? true : pet.category === selectedCategory;
     return nameMatch && categoryMatch;
   });
 
@@ -67,7 +67,7 @@ const Shop = () => {
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Categories</SelectItem>
+                  <SelectItem value="all">All Categories</SelectItem>
                   {petCategories.map((category) => (
                     <SelectItem key={category} value={category}>
                       {category}
@@ -97,7 +97,7 @@ const Shop = () => {
                 variant="outline" 
                 onClick={() => {
                   setSearchTerm("");
-                  setSelectedCategory("");
+                  setSelectedCategory("all");
                   setSortType("name-asc");
                 }}
                 className="w-full"
